@@ -272,6 +272,9 @@ while ( $row = $contacts->fetchArray() ) {
 				$html_embed = '<img src="' . $chat_title . '/' . $attachment_filename . '" />';
 			}
 			else {
+				// HACK ALERT: Skip non-image attachments
+				continue
+
 				if ( strpos( $message['attachment_mime_type'], 'video' ) === 0 ) {
 					$html_embed = '<video controls><source src="' . $chat_title . '/' . $attachment_filename . '" type="' . $message['attachment_mime_type'] . '"></video><br />';
 				}
