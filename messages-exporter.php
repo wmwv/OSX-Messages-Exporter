@@ -220,7 +220,7 @@ while ( $row = $contacts->fetchArray() ) {
 
 			file_put_contents(
 				$html_file,
-				"\t\t\t" . '<p class="timestamp" data-timestamp="' . $message['timestamp'] . '">' . date( "n/j/Y, g:i A", $this_time ) . '</p><br />' . "\n",
+				"\t\t\t" . '<p class="timestamp" data-timestamp="' . $message['timestamp'] . '">' . date( "n/j/Y, g:i A", $this_time ) . '</p>' . "\n",
 				FILE_APPEND
 			);
 		}
