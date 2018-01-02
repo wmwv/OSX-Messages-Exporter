@@ -227,7 +227,7 @@ while ( $row = $contacts->fetchArray() ) {
 		
 		$last_time = $this_time;
 
-		if ( $conversation_participant_count > 2 && ! $message['is_from_me'] && $message['contact'] != $last_participant ) {
+		if ( $conversation_participant_count > 2 && $message['contact'] != $last_participant ) {
 			$last_participant = $message['contact'];
 			
 			file_put_contents(
@@ -273,7 +273,7 @@ while ( $row = $contacts->fetchArray() ) {
 			}
 			else {
 				// HACK ALERT: Skip non-image attachments
-				continue
+				continue;
 
 				if ( strpos( $message['attachment_mime_type'], 'video' ) === 0 ) {
 					$html_embed = '<video controls><source src="' . $chat_title . '/' . $attachment_filename . '" type="' . $message['attachment_mime_type'] . '"></video><br />';
@@ -287,14 +287,14 @@ while ( $row = $contacts->fetchArray() ) {
 			
 			file_put_contents(
 				$html_file,
-				"\t\t\t" . '<p class="message" data-from="' . ( $message['is_from_me'] ? 'self' : $message['contact'] ) . '" data-timestamp="' . $message['timestamp'] . '">' . $html_embed . '</p>',
+				"\t\t\t" . '<p class="message" data-from="' . ( $message['contact'] ) . '" data-timestamp="' . $message['timestamp'] . '">' . $html_embed . '</p>',
 				FILE_APPEND
 			);
 		}
 		else {
 			file_put_contents(
 				$html_file,
-				"\t\t\t" . '<p class="message" data-from="' . ( $message['is_from_me'] ? 'self' : $message['contact'] ) . '" data-timestamp="' . $message['timestamp'] . '">' . htmlspecialchars( trim( $message['content'] ) ) . '</p>',
+				"\t\t\t" . '<p class="message" data-from="' . ( $message['contact'] ) . '" data-timestamp="' . $message['timestamp'] . '">' . nl2br(htmlspecialchars( trim( $message['content'] ) )) . '</p>',
 				FILE_APPEND
 			);
 		}
